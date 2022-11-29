@@ -6,6 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "0ddfb97b0dc24fa59f0e2b5a8e5a8928"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                        
 
   <style>
     button {
@@ -102,6 +110,114 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    errorBtns[0].addEventListener('click', () => {
+      console.log('Console Log Demo');
+    });
+
+    errorBtns[1].addEventListener('click', () => {
+      console.error('Console Error Demo');
+    });
+
+    errorBtns[2].addEventListener('click', () => {
+      console.count('Console Count Demo');
+    });
+
+    errorBtns[3].addEventListener('click', () => {
+      console.warn('Console Warn Demo');
+    });
+
+    errorBtns[4].addEventListener('click', () => {
+      let number = 3;
+      let errorMsg = "the # is not even";
+      console.assert(number % 2 === 0, '%o', { number, errorMsg })
+    });
+
+    errorBtns[5].addEventListener('click', () => {
+      console.clear();
+    });
+
+    var whale = {
+      type: "humpback",
+      age: "200"
+    };
+    errorBtns[6].addEventListener('click', () => {
+      console.dir(whale);
+    });
+
+    errorBtns[7].addEventListener('click', () => {
+      console.dirxml(whale);
+    });
+
+    errorBtns[8].addEventListener('click', () => {
+      console.group();
+    });
+
+    errorBtns[9].addEventListener('click', () => {
+      console.groupEnd();
+    });
+
+    errorBtns[10].addEventListener('click', () => {
+      console.table(["humpback", "orca", "pilot"]);
+    });
+
+    errorBtns[11].addEventListener('click', () => {
+      console.time();
+    });
+
+    errorBtns[12].addEventListener('click', () => {
+      console.timeEnd();
+    });
+
+    errorBtns[13].addEventListener('click', () => {
+      function ocean() {
+        function wave() {
+          console.trace();
+        }
+        wave();
+      }
+
+      ocean();
+    });
+
+     // step 4 - create a custom error
+     class speciesError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "speciesError";
+      }
+    }
+
+    // step 3 - trying try/catch
+    function whaleID(whale1, whale2) {
+
+      // step 4 - throw extending my custom error
+      if (whale1 != whale2) throw new speciesError(`${whale1} and ${whale2} not same species`);
+    }
+
+    errorBtns[14].addEventListener('click', () => {
+      console.error('global error triggered');
+      try {
+        whaleID("humpback", "orca");
+      } 
+      catch (error) {
+        console.error(error);
+      }
+      finally {
+        throw new TypeError("Finally block reached");
+      }
+    });
+
+    // step 5
+    window.onerror = function (event) {
+      consol.log('Caught global error');
+      TrackJS.track(event);
+    }
+
+   
+
+
+
   </script>
 </body>
 
